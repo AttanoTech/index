@@ -7,437 +7,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700;1,900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:        #080810;
-      --bg-mid:    #0d0d1a;
-      --bg-card:   #111120;
-      --purple:    #7c3aed;
-      --purple-lt: #a855f7;
-      --purple-gl: rgba(124,58,237,.15);
-      --white:     #ffffff;
-      --off-white: #e2e2f0;
-      --muted:     #7777aa;
-      --border:    rgba(124,58,237,.22);
-      --glow:      0 0 60px rgba(124,58,237,.3);
-      --max: 1200px;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--off-white);
-      font-size: 1rem;
-      line-height: 1.65;
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ─────────────────────────────────────────────── */
-    header {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(8,8,16,.88);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--border);
-      padding: 1rem clamp(1.5rem, 5vw, 3rem);
-    }
-    nav {
-      max-width: var(--max);
-      margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-    }
-    .logo {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900; font-size: 1.55rem; letter-spacing: .06em;
-      color: var(--white); text-decoration: none;
-      display: flex; align-items: center; gap: .5rem;
-    }
-    .logo-hex {
-      width: 26px; height: 26px;
-      background: linear-gradient(135deg, var(--purple), var(--purple-lt));
-      clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
-      flex-shrink: 0;
-    }
-    .logo span { color: var(--purple-lt); }
-    nav ul { list-style: none; display: flex; gap: 1.75rem; }
-    nav ul a {
-      font-size: .87rem; font-weight: 500; letter-spacing: .03em;
-      color: var(--muted); text-decoration: none; transition: color .2s;
-    }
-    nav ul a:hover { color: var(--white); }
-    .nav-cta {
-      background: var(--purple); color: var(--white) !important;
-      padding: .5rem 1.3rem; border-radius: 2rem;
-      font-size: .85rem !important; font-weight: 600 !important;
-      letter-spacing: .05em !important;
-      transition: background .2s, box-shadow .2s !important;
-    }
-    .nav-cta:hover {
-      background: var(--purple-lt) !important;
-      box-shadow: 0 0 22px rgba(168,85,247,.45) !important;
-    }
-
-    /* ── LAYOUT ──────────────────────────────────────────── */
-    .section {
-      position: relative; width: 100%; z-index: 1;
-      padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 3rem);
-    }
-    .section--alt { background: var(--bg-mid); }
-    .inner { max-width: var(--max); margin: 0 auto; }
-
-    /* ── CHIP LABEL ──────────────────────────────────────── */
-    .chip {
-      display: inline-flex; align-items: center; gap: .5rem;
-      background: var(--purple-gl);
-      border: 1px solid var(--border);
-      color: var(--purple-lt);
-      font-size: .73rem; font-weight: 700;
-      letter-spacing: .14em; text-transform: uppercase;
-      padding: .32rem .9rem; border-radius: 2rem;
-      margin-bottom: 1.2rem;
-    }
-    .chip::before { content:''; width:6px; height:6px; border-radius:50%; background: var(--purple-lt); }
-
-    /* ── HEADINGS ────────────────────────────────────────── */
-    .section-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
-      line-height: 1.04; letter-spacing: .015em; text-transform: uppercase;
-      color: var(--white);
-    }
-    .section-title em { font-style: italic; color: var(--purple-lt); }
-    .section-sub {
-      font-size: .97rem; color: var(--muted);
-      margin-top: .9rem; max-width: 500px; line-height: 1.75;
-    }
-
-    /* ── BUTTONS ─────────────────────────────────────────── */
-    .btn {
-      display: inline-flex; align-items: center; gap: .5rem;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700; font-size: 1rem;
-      letter-spacing: .08em; text-transform: uppercase;
-      text-decoration: none; padding: .85rem 2rem;
-      border-radius: .5rem; border: none; cursor: pointer;
-      transition: all .25s;
-    }
-    .btn--primary {
-      background: var(--purple); color: var(--white);
-      box-shadow: 0 0 24px rgba(124,58,237,.4);
-    }
-    .btn--primary:hover {
-      background: var(--purple-lt);
-      box-shadow: 0 0 44px rgba(168,85,247,.55);
-      transform: translateY(-2px);
-    }
-    .btn--ghost {
-      background: transparent; color: var(--white);
-      border: 1.5px solid var(--border);
-    }
-    .btn--ghost:hover {
-      border-color: var(--purple-lt); color: var(--purple-lt);
-      background: var(--purple-gl);
-    }
-
-    /* ── GLOW / DIAG DECORATIONS ─────────────────────────── */
-    .glow-blob {
-      position: absolute; border-radius: 50%;
-      background: radial-gradient(circle, rgba(124,58,237,.5) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .diag {
-      position: absolute;
-      background: linear-gradient(135deg, var(--purple), #4f20aa);
-      clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
-    }
-
-    /* ══════════════════════════════════════════════════════
-       HERO
-    ══════════════════════════════════════════════════════ */
-    .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: center;
-      overflow: hidden;
-      padding-top: clamp(5rem, 10vh, 9rem);
-      padding-bottom: clamp(4rem, 8vh, 7rem);
-    }
-    .hero .inner {
-      position: relative; z-index: 2;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: clamp(3rem, 6vw, 5rem);
-      align-items: center;
-    }
-    .hero-tag {
-      font-size: .76rem; font-weight: 700;
-      letter-spacing: .2em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 1.1rem;
-    }
-    .hero-tag span { color: var(--purple-lt); }
-    .hero-h1 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: clamp(3rem, 6.5vw, 5.2rem);
-      line-height: 1.0; letter-spacing: .01em; text-transform: uppercase;
-      color: var(--white); margin-bottom: 1.4rem;
-    }
-    .hero-h1 em { font-style: italic; color: var(--purple-lt); display: block; }
-    .hero-sub {
-      font-size: 1.05rem; color: var(--muted);
-      line-height: 1.75; max-width: 440px; margin-bottom: 2.5rem;
-    }
-    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .hero-visual { position: relative; }
-    .hero-img-wrap {
-      border-radius: 1rem; overflow: hidden;
-      border: 1px solid var(--border); box-shadow: var(--glow);
-    }
-    .hero-img-wrap img {
-      width: 100%; height: 420px; object-fit: cover;
-      display: block; filter: brightness(.8) saturate(1.15);
-    }
-    .hero-img-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(140deg, rgba(124,58,237,.35) 0%, transparent 65%);
-    }
-    .hero-badge {
-      position: absolute; bottom: -1.4rem; left: -1.4rem;
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: .75rem; padding: 1rem 1.3rem;
-      display: flex; align-items: center; gap: .85rem;
-    }
-    .hero-badge-icon {
-      width: 40px; height: 40px;
-      background: linear-gradient(135deg, var(--purple), var(--purple-lt));
-      border-radius: .5rem;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--white);
-    }
-    .hero-badge-text strong {
-      display: block;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 800; font-size: 1rem; letter-spacing: .04em; color: var(--white);
-    }
-    .hero-badge-text span { font-size: .73rem; color: var(--muted); }
-    .hero-contact {
-      position: relative; z-index: 2;
-      margin-top: clamp(3rem, 6vw, 5rem);
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-      display: flex; gap: 2.5rem; align-items: center; flex-wrap: wrap;
-    }
-    .hero-contact-item {
-      display: flex; align-items: center; gap: .7rem;
-      font-size: .88rem; color: var(--muted);
-    }
-    .ci-icon {
-      width: 36px; height: 36px; border-radius: 50%;
-      background: var(--purple-gl); border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--purple-lt);
-    }
-    .hero-contact-item a { color: var(--off-white); text-decoration: none; }
-    .hero-contact-item a:hover { color: var(--purple-lt); }
-
-    /* ══════════════════════════════════════════════════════
-       QUEM SOMOS
-    ══════════════════════════════════════════════════════ */
-    .about .inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: clamp(3rem, 6vw, 5rem); align-items: center;
-    }
-    .about-text p {
-      font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.2rem;
-    }
-    .about-text p strong { color: var(--off-white); }
-    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .stat-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: .75rem; padding: 1.5rem; text-align: center;
-      transition: border-color .2s, box-shadow .2s;
-    }
-    .stat-card:hover { border-color: var(--purple-lt); box-shadow: 0 0 24px rgba(168,85,247,.2); }
-    .stat-card .num {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900; font-size: 2.4rem; letter-spacing: .03em;
-      color: var(--purple-lt); line-height: 1;
-    }
-    .stat-card p { font-size: .8rem; color: var(--muted); margin-top: .4rem; }
-
-    /* ══════════════════════════════════════════════════════
-       DIFERENCIAIS
-    ══════════════════════════════════════════════════════ */
-    .features-header { text-align: center; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
-    .features-header .section-sub { margin: 0 auto; text-align: center; }
-    .features-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
-    }
-    .feature-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 1rem; padding: 2rem 1.75rem;
-      position: relative; overflow: hidden;
-      transition: border-color .25s, transform .25s, box-shadow .25s;
-    }
-    .feature-card::before {
-      content: ''; position: absolute; top: 0; left: 0;
-      width: 100%; height: 3px;
-      background: linear-gradient(90deg, var(--purple), var(--purple-lt));
-      opacity: 0; transition: opacity .25s;
-    }
-    .feature-card:hover { border-color: var(--purple); transform: translateY(-4px); box-shadow: 0 8px 40px rgba(124,58,237,.2); }
-    .feature-card:hover::before { opacity: 1; }
-    .feature-icon {
-      width: 52px; height: 52px;
-      background: var(--purple-gl); border: 1px solid var(--border);
-      border-radius: .75rem;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--purple-lt); margin-bottom: 1.2rem;
-    }
-    .feature-card h3 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 800; font-size: 1rem; letter-spacing: .07em; text-transform: uppercase;
-      color: var(--white); margin-bottom: .6rem;
-    }
-    .feature-card p { font-size: .87rem; color: var(--muted); line-height: 1.7; }
-
-    /* ══════════════════════════════════════════════════════
-       DEPOIMENTOS
-    ══════════════════════════════════════════════════════ */
-    .testi-header { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
-    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-    .testi-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 1rem; padding: 2rem;
-      transition: border-color .25s, box-shadow .25s;
-    }
-    .testi-card:hover { border-color: var(--purple); box-shadow: 0 8px 40px rgba(124,58,237,.2); }
-    .testi-stars { color: var(--purple-lt); font-size: .95rem; letter-spacing: .1em; margin-bottom: 1rem; }
-    .testi-text { font-size: .9rem; color: var(--off-white); line-height: 1.75; margin-bottom: 1.5rem; font-style: italic; }
-    .testi-author { display: flex; align-items: center; gap: .85rem; }
-    .testi-avatar { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 2px solid var(--purple); flex-shrink: 0; }
-    .testi-avatar img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); }
-    .testi-name { font-weight: 600; font-size: .88rem; color: var(--white); }
-    .testi-role { font-size: .76rem; color: var(--muted); }
-
-    /* ══════════════════════════════════════════════════════
-       FAQ
-    ══════════════════════════════════════════════════════ */
-    .faq-section .inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: clamp(3rem, 6vw, 5rem); align-items: start;
-    }
-    .faq-side {}
-    .faq-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 2.5rem; }
-    .faq-item {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: .75rem; padding: 1.5rem;
-      transition: border-color .2s;
-    }
-    .faq-item:hover { border-color: var(--purple); }
-    .faq-item h4 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700; font-size: 1rem; letter-spacing: .04em; text-transform: uppercase;
-      color: var(--white); margin-bottom: .55rem;
-    }
-    .faq-item p { font-size: .87rem; color: var(--muted); line-height: 1.7; }
-    .faq-visual {
-      border-radius: 1rem; overflow: hidden;
-      border: 1px solid var(--border); box-shadow: var(--glow);
-      position: sticky; top: 6rem; margin-top: 5.5rem;
-    }
-    .faq-visual img { width: 100%; height: 380px; object-fit: cover; filter: brightness(.7) saturate(1.2); display: block; }
-
-    /* ══════════════════════════════════════════════════════
-       SOLICITE UMA REUNIÃO
-    ══════════════════════════════════════════════════════ */
-    #reuniao { overflow: hidden; }
-    #reuniao .glow-blob {
-      width: 700px; height: 700px;
-      left: 50%; top: 50%; transform: translate(-50%, -50%); opacity: .3;
-    }
-    .meeting-wrap {
-      position: relative; z-index: 2;
-      text-align: center; max-width: 700px; margin: 0 auto;
-    }
-    .meeting-wrap .section-title { font-size: clamp(2.6rem, 6vw, 4.2rem); }
-    .meeting-wrap .section-sub { margin: 1.2rem auto 2.5rem; text-align: center; font-size: 1.05rem; max-width: 520px; }
-    .meeting-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .meeting-contacts {
-      margin-top: 3rem; padding-top: 2rem;
-      border-top: 1px solid var(--border);
-      display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
-    }
-    .mc-item {
-      display: flex; align-items: center; gap: .75rem;
-      color: var(--muted); font-size: .88rem;
-    }
-    .mc-icon {
-      width: 38px; height: 38px; border-radius: 50%;
-      background: var(--purple-gl); border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--purple-lt);
-    }
-    .mc-label { font-size: .7rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: .1rem; }
-    .mc-item a { color: var(--off-white); text-decoration: none; }
-    .mc-item a:hover { color: var(--purple-lt); }
-
-    /* ══════════════════════════════════════════════════════
-       FOOTER
-    ══════════════════════════════════════════════════════ */
-    footer {
-      background: #040408;
-      border-top: 1px solid var(--border);
-      padding: 2.5rem clamp(1.5rem, 5vw, 3rem);
-    }
-    footer .inner {
-      max-width: var(--max); margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 2rem; flex-wrap: wrap;
-    }
-    footer p { font-size: .78rem; color: var(--muted); margin-top: .35rem; }
-    footer nav ul { list-style: none; display: flex; gap: 1.75rem; flex-wrap: wrap; }
-    footer nav ul a { color: var(--muted); font-size: .84rem; text-decoration: none; transition: color .2s; }
-    footer nav ul a:hover { color: var(--purple-lt); }
-    .footer-social { display: flex; gap: .65rem; }
-    .footer-social a {
-      width: 34px; height: 34px; border-radius: 50%;
-      background: var(--bg-card); border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--muted); font-size: .75rem; text-decoration: none;
-      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
-      transition: border-color .2s, color .2s;
-    }
-    .footer-social a:hover { border-color: var(--purple-lt); color: var(--purple-lt); }
-
-    /* ── ANIMATIONS ──────────────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(26px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .fu { animation: fadeUp .8s ease both; }
-    .d1 { animation-delay: .1s; } .d2 { animation-delay: .25s; }
-    .d3 { animation-delay: .4s; } .d4 { animation-delay: .55s; }
-
-    /* ── RESPONSIVE ──────────────────────────────────────── */
-    @media (max-width: 960px) {
-      .hero .inner { grid-template-columns: 1fr; }
-      .hero-visual { display: none; }
-      .about .inner { grid-template-columns: 1fr; }
-      .features-grid { grid-template-columns: 1fr 1fr; }
-      .testi-grid { grid-template-columns: 1fr; }
-      .faq-section .inner { grid-template-columns: 1fr; }
-      .faq-visual { display: none; }
-    }
-    @media (max-width: 600px) {
-      nav ul { display: none; }
-      .features-grid { grid-template-columns: 1fr; }
-      .about-stats { grid-template-columns: 1fr 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    (function() {
+      if (localStorage.getItem('attano-theme') === 'light')
+        document.documentElement.setAttribute('data-theme', 'light');
+    })();
+  </script>
 </head>
 <body>
 
@@ -451,10 +27,14 @@
     <ul>
       <li><a href="#sobre">Quem Somos</a></li>
       <li><a href="#recursos">Diferenciais</a></li>
-      <li><a href="#depoimentos">Depoimentos</a></li>
+      <li><a href="#equipe">Equipe</a></li>
       <li><a href="#perguntas-frequentes">FAQ</a></li>
       <li><a href="#reuniao" class="nav-cta">Solicitar Reunião</a></li>
     </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>
+    </button>
   </nav>
 </header>
 
@@ -489,7 +69,6 @@
       </div>
       <div class="hero-badge">
         <div class="hero-badge-icon">
-          <!-- Bolt / Lightning -->
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
         <div class="hero-badge-text">
@@ -504,14 +83,12 @@
     <div class="hero-contact fu d4">
       <div class="hero-contact-item">
         <div class="ci-icon">
-          <!-- Phone -->
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9A16 16 0 0 0 15 16.09l1.15-1.15a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         </div>
         <a href="tel:14991364099">(14) 991364099</a>
       </div>
       <div class="hero-contact-item">
         <div class="ci-icon">
-          <!-- Mail -->
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
         </div>
         <a href="mailto:contato@attanotech.com.br">contato@attanotech.com.br</a>
@@ -554,7 +131,6 @@
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon">
-          <!-- Code / Terminal -->
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         </div>
         <h3>Desenvolvimento de Elite</h3>
@@ -562,7 +138,6 @@
       </div>
       <div class="feature-card">
         <div class="feature-icon">
-          <!-- Compass / Navigation -->
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
         </div>
         <h3>Onboarding Estratégico</h3>
@@ -570,7 +145,6 @@
       </div>
       <div class="feature-card">
         <div class="feature-icon">
-          <!-- Headphones -->
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
         </div>
         <h3>Suporte Técnico Especializado</h3>
@@ -578,7 +152,6 @@
       </div>
       <div class="feature-card">
         <div class="feature-icon">
-          <!-- Trending Up -->
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
         </div>
         <h3>Customer Success (CS)</h3>
@@ -586,7 +159,6 @@
       </div>
       <div class="feature-card">
         <div class="feature-icon">
-          <!-- Link -->
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
         </div>
         <h3>Integração Total</h3>
@@ -594,7 +166,6 @@
       </div>
       <div class="feature-card">
         <div class="feature-icon">
-          <!-- Sliders -->
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
         </div>
         <h3>Personalização de Sistemas</h3>
@@ -631,8 +202,94 @@
         </div>
       </div>
     </div>
-    <div class="faq-visual" style="position:relative;">
+    <div class="faq-visual">
       <img src="https://images.unsplash.com/photo-1741234491537-70994b652174?w=700&q=80" alt="" />
+    </div>
+  </div>
+</section>
+
+
+<!-- EQUIPE -->
+<section class="section section--alt" id="equipe">
+  <div class="glow-blob" style="width:500px;height:500px;right:-150px;top:-100px;opacity:.15;"></div>
+  <div class="inner">
+    <div class="chip">Equipe</div>
+    <h2 class="section-title">Conheça quem <em>Faz Acontecer</em></h2>
+    <p class="section-sub">Profissionais apaixonados por tecnologia que unem estratégia, desenvolvimento e gestão para entregar soluções de alto impacto.</p>
+
+    <div class="carousel-wrapper">
+      <div class="carousel-track" id="teamCarousel">
+
+        <div class="team-card">
+          <div class="team-avatar">
+            <span class="team-avatar-initials">PA</span>
+          </div>
+          <div class="team-role">Desenvolvedor</div>
+          <div class="team-name">Pedro Augusto</div>
+          <p class="team-bio">Desenvolvedor Full Stack e co-fundador da AttanoTech. Especialista em arquitetura de sistemas, APIs e soluções digitais escaláveis. Transforma requisitos complexos em código limpo e performático.</p>
+          <div class="team-tags">
+            <span class="team-tag">Full Stack</span>
+            <span class="team-tag">APIs</span>
+            <span class="team-tag">Arquitetura</span>
+            <span class="team-tag">Co-Founder</span>
+          </div>
+          <a href="https://pehaalmeida.com.br/" target="_blank" class="team-link">Ver portfólio →</a>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar">
+            <span class="team-avatar-initials">PN</span>
+          </div>
+          <div class="team-role">Gestor de Projetos</div>
+          <div class="team-name">Pedro Netto</div>
+          <p class="team-bio">Analista de Infraestrutura Cloud e co-fundador da AttanoTech. Responsável pela gestão de projetos, pipelines CI/CD e infraestrutura de alto desempenho. Certificado AWS e Cisco CCNA.</p>
+          <div class="team-tags">
+            <span class="team-tag">Cloud</span>
+            <span class="team-tag">CI/CD</span>
+            <span class="team-tag">AWS</span>
+            <span class="team-tag">Co-Founder</span>
+          </div>
+          <a href="https://nettotech.com.br/" target="_blank" class="team-link">Ver portfólio →</a>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar">
+            <span class="team-avatar-initials">CG</span>
+          </div>
+          <div class="team-role">Product Owner</div>
+          <div class="team-name">Caio Gatti</div>
+          <p class="team-bio">Product Owner da AttanoTech. Define a visão estratégica dos produtos, cria backlog e garante que cada entrega gere valor real para o cliente. Referência em descoberta de produto.</p>
+          <div class="team-tags">
+            <span class="team-tag">Produto</span>
+            <span class="team-tag">Costumer Success</span>
+            <span class="team-tag">Estratégia</span>
+            <span class="team-tag">Visão empresarial</span>
+          </div>
+          <a href="https://caiogatti.com.br/" target="_blank" class="team-link">Ver portfólio →</a>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar">
+            <span class="team-avatar-initials">LS</span>
+          </div>
+          <div class="team-role">Marketing</div>
+          <div class="team-name">Lucas Spiri</div>
+          <p class="team-bio">Responsável pela identidade de marca e presença digital da AttanoTech. Une criatividade e dados para posicionar a empresa no mercado, atrair clientes e amplificar o impacto das soluções desenvolvidas.</p>
+          <div class="team-tags">
+            <span class="team-tag">Branding</span>
+            <span class="team-tag">Digital</span>
+            <span class="team-tag">Conteúdo</span>
+            <span class="team-tag">Growth</span>
+          </div>
+          <a href="https://www.linkedin.com/in/lucas-spiri-90a148219/" target="_blank" class="team-link">Ver LinkedIn →</a>
+        </div>
+
+      </div>
+
+      <div class="carousel-nav">
+        <button class="carousel-btn" id="teamPrev" aria-label="Anterior">&#8592;</button>
+        <button class="carousel-btn" id="teamNext" aria-label="Próximo">&#8594;</button>
+      </div>
     </div>
   </div>
 </section>
@@ -652,12 +309,10 @@
     </p>
     <div class="meeting-btns">
       <a href="https://wa.me/5514991364099" target="_blank" class="btn btn--primary">
-        <!-- Message Circle -->
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
         Falar no WhatsApp
       </a>
       <a href="mailto:contato@attanotech.com.br" class="btn btn--ghost">
-        <!-- Mail -->
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
         Enviar E-mail
       </a>
@@ -665,7 +320,6 @@
     <div class="meeting-contacts">
       <div class="mc-item">
         <div class="mc-icon">
-          <!-- Phone -->
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9A16 16 0 0 0 15 16.09l1.15-1.15a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         </div>
         <div>
@@ -675,13 +329,6 @@
       </div>
       <div class="mc-item">
         <div class="mc-icon">
-          <!-- Globe -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-        </div>
-      </div>
-      <div class="mc-item">
-        <div class="mc-icon">
-          <!-- Mail -->
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
         </div>
         <div>
@@ -691,7 +338,6 @@
       </div>
       <div class="mc-item">
         <div class="mc-icon">
-          <!-- Instagram -->
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         </div>
         <div>
@@ -716,7 +362,7 @@
       <ul>
         <li><a href="#sobre">Quem Somos</a></li>
         <li><a href="#recursos">Diferenciais</a></li>
-        <li><a href="#depoimentos">Depoimentos</a></li>
+        <li><a href="#equipe">Equipe</a></li>
         <li><a href="#perguntas-frequentes">FAQ</a></li>
         <li><a href="#reuniao">Reunião</a></li>
       </ul>
@@ -729,5 +375,6 @@
   </div>
 </footer>
 
+<script src="main.js"></script>
 </body>
 </html>
