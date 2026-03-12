@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AttanoTech – Softwares que simplificam vidas e transformam negócios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700;1,900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080810;
+      --bg-mid:    #0d0d1a;
+      --bg-card:   #111120;
+      --purple:    #7c3aed;
+      --purple-lt: #a855f7;
+      --purple-gl: rgba(124,58,237,.15);
+      --white:     #ffffff;
+      --off-white: #e2e2f0;
+      --muted:     #7777aa;
+      --border:    rgba(124,58,237,.22);
+      --glow:      0 0 60px rgba(124,58,237,.3);
+      --max: 1200px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--off-white);
+      font-size: 1rem;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,8,16,.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem clamp(1.5rem, 5vw, 3rem);
+    }
+    nav {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 1.55rem; letter-spacing: .06em;
+      color: var(--white); text-decoration: none;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .logo-hex {
+      width: 26px; height: 26px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-lt));
+      clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+      flex-shrink: 0;
+    }
+    .logo span { color: var(--purple-lt); }
+    nav ul { list-style: none; display: flex; gap: 1.75rem; }
+    nav ul a {
+      font-size: .87rem; font-weight: 500; letter-spacing: .03em;
+      color: var(--muted); text-decoration: none; transition: color .2s;
+    }
+    nav ul a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--purple); color: var(--white) !important;
+      padding: .5rem 1.3rem; border-radius: 2rem;
+      font-size: .85rem !important; font-weight: 600 !important;
+      letter-spacing: .05em !important;
+      transition: background .2s, box-shadow .2s !important;
+    }
+    .nav-cta:hover {
+      background: var(--purple-lt) !important;
+      box-shadow: 0 0 22px rgba(168,85,247,.45) !important;
+    }
+
+    /* ── LAYOUT ──────────────────────────────────────────── */
+    .section {
+      position: relative; width: 100%; z-index: 1;
+      padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 3rem);
+    }
+    .section--alt { background: var(--bg-mid); }
+    .inner { max-width: var(--max); margin: 0 auto; }
+
+    /* ── CHIP LABEL ──────────────────────────────────────── */
+    .chip {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--purple-gl);
+      border: 1px solid var(--border);
+      color: var(--purple-lt);
+      font-size: .73rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      padding: .32rem .9rem; border-radius: 2rem;
+      margin-bottom: 1.2rem;
+    }
+    .chip::before { content:''; width:6px; height:6px; border-radius:50%; background: var(--purple-lt); }
+
+    /* ── HEADINGS ────────────────────────────────────────── */
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.04; letter-spacing: .015em; text-transform: uppercase;
+      color: var(--white);
+    }
+    .section-title em { font-style: italic; color: var(--purple-lt); }
+    .section-sub {
+      font-size: .97rem; color: var(--muted);
+      margin-top: .9rem; max-width: 500px; line-height: 1.75;
+    }
+
+    /* ── BUTTONS ─────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1rem;
+      letter-spacing: .08em; text-transform: uppercase;
+      text-decoration: none; padding: .85rem 2rem;
+      border-radius: .5rem; border: none; cursor: pointer;
+      transition: all .25s;
+    }
+    .btn--primary {
+      background: var(--purple); color: var(--white);
+      box-shadow: 0 0 24px rgba(124,58,237,.4);
+    }
+    .btn--primary:hover {
+      background: var(--purple-lt);
+      box-shadow: 0 0 44px rgba(168,85,247,.55);
+      transform: translateY(-2px);
+    }
+    .btn--ghost {
+      background: transparent; color: var(--white);
+      border: 1.5px solid var(--border);
+    }
+    .btn--ghost:hover {
+      border-color: var(--purple-lt); color: var(--purple-lt);
+      background: var(--purple-gl);
+    }
+
+    /* ── GLOW / DIAG DECORATIONS ─────────────────────────── */
+    .glow-blob {
+      position: absolute; border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,58,237,.5) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .diag {
+      position: absolute;
+      background: linear-gradient(135deg, var(--purple), #4f20aa);
+      clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+    }
+
+    /* ══════════════════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      overflow: hidden;
+      padding-top: clamp(5rem, 10vh, 9rem);
+      padding-bottom: clamp(4rem, 8vh, 7rem);
+    }
+    .hero .inner {
+      position: relative; z-index: 2;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: clamp(3rem, 6vw, 5rem);
+      align-items: center;
+    }
+    .hero-tag {
+      font-size: .76rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1.1rem;
+    }
+    .hero-tag span { color: var(--purple-lt); }
+    .hero-h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 6.5vw, 5.2rem);
+      line-height: 1.0; letter-spacing: .01em; text-transform: uppercase;
+      color: var(--white); margin-bottom: 1.4rem;
+    }
+    .hero-h1 em { font-style: italic; color: var(--purple-lt); display: block; }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--muted);
+      line-height: 1.75; max-width: 440px; margin-bottom: 2.5rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-visual { position: relative; }
+    .hero-img-wrap {
+      border-radius: 1rem; overflow: hidden;
+      border: 1px solid var(--border); box-shadow: var(--glow);
+    }
+    .hero-img-wrap img {
+      width: 100%; height: 420px; object-fit: cover;
+      display: block; filter: brightness(.8) saturate(1.15);
+    }
+    .hero-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(140deg, rgba(124,58,237,.35) 0%, transparent 65%);
+    }
+    .hero-badge {
+      position: absolute; bottom: -1.4rem; left: -1.4rem;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: .75rem; padding: 1rem 1.3rem;
+      display: flex; align-items: center; gap: .85rem;
+    }
+    .hero-badge-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-lt));
+      border-radius: .5rem;
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    .hero-badge-text strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 1rem; letter-spacing: .04em; color: var(--white);
+    }
+    .hero-badge-text span { font-size: .73rem; color: var(--muted); }
+    .hero-contact {
+      position: relative; z-index: 2;
+      margin-top: clamp(3rem, 6vw, 5rem);
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex; gap: 2.5rem; align-items: center; flex-wrap: wrap;
+    }
+    .hero-contact-item {
+      display: flex; align-items: center; gap: .7rem;
+      font-size: .88rem; color: var(--muted);
+    }
+    .ci-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--purple-gl); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; font-size: .9rem;
+    }
+    .hero-contact-item a { color: var(--off-white); text-decoration: none; }
+    .hero-contact-item a:hover { color: var(--purple-lt); }
+
+    /* ══════════════════════════════════════════════════════
+       QUEM SOMOS
+    ══════════════════════════════════════════════════════ */
+    .about .inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 6vw, 5rem); align-items: center;
+    }
+    .about-text p {
+      font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.2rem;
+    }
+    .about-text p strong { color: var(--off-white); }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .stat-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: .75rem; padding: 1.5rem; text-align: center;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .stat-card:hover { border-color: var(--purple-lt); box-shadow: 0 0 24px rgba(168,85,247,.2); }
+    .stat-card .num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 2.4rem; letter-spacing: .03em;
+      color: var(--purple-lt); line-height: 1;
+    }
+    .stat-card p { font-size: .8rem; color: var(--muted); margin-top: .4rem; }
+
+    /* ══════════════════════════════════════════════════════
+       DIFERENCIAIS
+    ══════════════════════════════════════════════════════ */
+    .features-header { text-align: center; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+    .features-header .section-sub { margin: 0 auto; text-align: center; }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+    }
+    .feature-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 1rem; padding: 2rem 1.75rem;
+      position: relative; overflow: hidden;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+    }
+    .feature-card::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--purple), var(--purple-lt));
+      opacity: 0; transition: opacity .25s;
+    }
+    .feature-card:hover { border-color: var(--purple); transform: translateY(-4px); box-shadow: 0 8px 40px rgba(124,58,237,.2); }
+    .feature-card:hover::before { opacity: 1; }
+    .feature-icon {
+      width: 52px; height: 52px;
+      background: var(--purple-gl); border: 1px solid var(--border);
+      border-radius: .75rem;
+      display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+    .feature-card h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 1rem; letter-spacing: .07em; text-transform: uppercase;
+      color: var(--white); margin-bottom: .6rem;
+    }
+    .feature-card p { font-size: .87rem; color: var(--muted); line-height: 1.7; }
+
+    /* ══════════════════════════════════════════════════════
+       DEPOIMENTOS
+    ══════════════════════════════════════════════════════ */
+    .testi-header { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .testi-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 1rem; padding: 2rem;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    .testi-card:hover { border-color: var(--purple); box-shadow: 0 8px 40px rgba(124,58,237,.2); }
+    .testi-stars { color: var(--purple-lt); font-size: .95rem; letter-spacing: .1em; margin-bottom: 1rem; }
+    .testi-text { font-size: .9rem; color: var(--off-white); line-height: 1.75; margin-bottom: 1.5rem; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: .85rem; }
+    .testi-avatar { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 2px solid var(--purple); flex-shrink: 0; }
+    .testi-avatar img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); }
+    .testi-name { font-weight: 600; font-size: .88rem; color: var(--white); }
+    .testi-role { font-size: .76rem; color: var(--muted); }
+
+    /* ══════════════════════════════════════════════════════
+       FAQ
+    ══════════════════════════════════════════════════════ */
+    .faq-section .inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 6vw, 5rem); align-items: start;
+    }
+    .faq-side {}
+    .faq-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 2.5rem; }
+    .faq-item {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: .75rem; padding: 1.5rem;
+      transition: border-color .2s;
+    }
+    .faq-item:hover { border-color: var(--purple); }
+    .faq-item h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1rem; letter-spacing: .04em; text-transform: uppercase;
+      color: var(--white); margin-bottom: .55rem;
+    }
+    .faq-item p { font-size: .87rem; color: var(--muted); line-height: 1.7; }
+    .faq-visual {
+      border-radius: 1rem; overflow: hidden;
+      border: 1px solid var(--border); box-shadow: var(--glow);
+      position: sticky; top: 6rem; margin-top: 5.5rem;
+    }
+    .faq-visual img { width: 100%; height: 380px; object-fit: cover; filter: brightness(.7) saturate(1.2); display: block; }
+
+    /* ══════════════════════════════════════════════════════
+       SOLICITE UMA REUNIÃO
+    ══════════════════════════════════════════════════════ */
+    #reuniao { overflow: hidden; }
+    #reuniao .glow-blob {
+      width: 700px; height: 700px;
+      left: 50%; top: 50%; transform: translate(-50%, -50%); opacity: .3;
+    }
+    .meeting-wrap {
+      position: relative; z-index: 2;
+      text-align: center; max-width: 700px; margin: 0 auto;
+    }
+    .meeting-wrap .section-title { font-size: clamp(2.6rem, 6vw, 4.2rem); }
+    .meeting-wrap .section-sub { margin: 1.2rem auto 2.5rem; text-align: center; font-size: 1.05rem; max-width: 520px; }
+    .meeting-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .meeting-contacts {
+      margin-top: 3rem; padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
+    }
+    .mc-item {
+      display: flex; align-items: center; gap: .75rem;
+      color: var(--muted); font-size: .88rem;
+    }
+    .mc-icon {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--purple-gl); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; font-size: .95rem;
+    }
+    .mc-label { font-size: .7rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: .1rem; }
+    .mc-item a { color: var(--off-white); text-decoration: none; }
+    .mc-item a:hover { color: var(--purple-lt); }
+
+    /* ══════════════════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════════════════ */
+    footer {
+      background: #040408;
+      border-top: 1px solid var(--border);
+      padding: 2.5rem clamp(1.5rem, 5vw, 3rem);
+    }
+    footer .inner {
+      max-width: var(--max); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 2rem; flex-wrap: wrap;
+    }
+    footer p { font-size: .78rem; color: var(--muted); margin-top: .35rem; }
+    footer nav ul { list-style: none; display: flex; gap: 1.75rem; flex-wrap: wrap; }
+    footer nav ul a { color: var(--muted); font-size: .84rem; text-decoration: none; transition: color .2s; }
+    footer nav ul a:hover { color: var(--purple-lt); }
+    .footer-social { display: flex; gap: .65rem; }
+    .footer-social a {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--bg-card); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: .75rem; text-decoration: none;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      transition: border-color .2s, color .2s;
+    }
+    .footer-social a:hover { border-color: var(--purple-lt); color: var(--purple-lt); }
+
+    /* ── ANIMATIONS ──────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(26px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fu { animation: fadeUp .8s ease both; }
+    .d1 { animation-delay: .1s; } .d2 { animation-delay: .25s; }
+    .d3 { animation-delay: .4s; } .d4 { animation-delay: .55s; }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .hero .inner { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .about .inner { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .faq-section .inner { grid-template-columns: 1fr; }
+      .faq-visual { display: none; }
+    }
+    @media (max-width: 600px) {
+      nav ul { display: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<header>
+  <nav>
+    <a href="#" class="logo">
+      <div class="logo-hex"></div>
+      ATTANO<span>TECH</span>
+    </a>
+    <ul>
+      <li><a href="#sobre">Quem Somos</a></li>
+      <li><a href="#recursos">Diferenciais</a></li>
+      <li><a href="#depoimentos">Depoimentos</a></li>
+      <li><a href="#perguntas-frequentes">FAQ</a></li>
+      <li><a href="#reuniao" class="nav-cta">Solicitar Reunião</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+<!-- HERO -->
+<section class="section hero">
+  <div class="glow-blob" style="width:700px;height:700px;left:-200px;top:-150px;opacity:.55;"></div>
+  <div class="glow-blob" style="width:500px;height:500px;right:-100px;bottom:0;opacity:.35;"></div>
+  <div class="diag" style="width:80px;height:320px;top:8%;right:14%;transform:rotate(-12deg);"></div>
+  <div class="diag" style="width:50px;height:200px;bottom:10%;right:7%;transform:rotate(-8deg);opacity:.6;"></div>
+
+  <div class="inner">
+    <div class="hero-content">
+      <p class="hero-tag fu d1">PROPOSTA COMERCIAL · <span>2026</span></p>
+      <h1 class="hero-h1 fu d2">
+        O Próximo Nível<br>para o
+        <em>Seu Negócio</em>
+      </h1>
+      <p class="hero-sub fu d3">
+        Softwares que simplificam vidas e transformam negócios.<br>
+        Inteligência operacional sob medida para cada desafio digital.
+      </p>
+      <div class="hero-btns fu d4">
+        <a href="#reuniao" class="btn btn--primary">Solicitar Reunião →</a>
+        <a href="#recursos" class="btn btn--ghost">Nossos Diferenciais</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-wrap">
+        <img src="https://images.unsplash.com/photo-1631624215749-b10b3dd7bca7?w=900&q=80" alt="AttanoTech – Software" />
+        <div class="hero-img-overlay"></div>
+      </div>
+      <div class="hero-badge">
+        <div class="hero-badge-icon">⚡</div>
+        <div class="hero-badge-text">
+          <strong>Inteligência Operacional</strong>
+          <span>Tecnologia com DNA Bauruense</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="inner">
+    <div class="hero-contact fu d4">
+      <div class="hero-contact-item"><div class="ci-icon">📞</div><a href="tel:14991364099">(14) 991364099</a></div>
+      <div class="hero-contact-item"><div class="ci-icon">✉️</div><a href="mailto:contato@attanotech.com.br">contato@attanotech.com.br</a></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- QUEM SOMOS -->
+<section class="section section--alt about" id="sobre">
+  <div class="glow-blob" style="width:500px;height:500px;right:-150px;bottom:-100px;opacity:.2;"></div>
+  <div class="inner">
+    <div class="about-text">
+      <div class="chip">Quem Somos</div>
+      <h2 class="section-title">Tecnologia com<br><em>DNA Bauruense</em></h2>
+      <p>Na Attano Tech, acreditamos que a tecnologia deve <strong>simplificar a vida e impulsionar resultados</strong>. Nossa missão é livrar as empresas da cultura do improviso.</p>
+      <p>Através de softwares inteligentes, transformamos fluxos de trabalho em operações <strong>precisas, seguras e totalmente automatizadas</strong>. Nascemos no coração do estado de São Paulo, levando o espírito pioneiro de Bauru em cada linha de código que escrevemos.</p>
+      <p>Menos dúvida, <strong>mais inteligência</strong>.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card"><div class="num">100%</div><p>Soluções sob medida para seu negócio</p></div>
+      <div class="stat-card"><div class="num">+2</div><p>Produtos ativos no mercado em 2026</p></div>
+      <div class="stat-card"><div class="num">0</div><p>Improvisação — apenas processos precisos</p></div>
+      <div class="stat-card"><div class="num">∞</div><p>Escalabilidade para crescer sem limites</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- DIFERENCIAIS -->
+<section class="section" id="recursos">
+  <div class="glow-blob" style="width:500px;height:500px;right:-150px;top:-100px;opacity:.18;"></div>
+  <div class="inner">
+    <div class="features-header">
+      <div class="chip">Diferenciais</div>
+      <h2 class="section-title">A Escolha de Quem Exige<br><em>Inteligência Operacional</em></h2>
+      <p class="section-sub">Seis pilares que nos tornam referência em desenvolvimento de software.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⌨️</div>
+        <h3>Desenvolvimento de Elite</h3>
+        <p>Nossa equipe projeta cada fluxo do zero, garantindo um software sob medida para sua necessidade. Eliminamos o improviso e focamos em uma arquitetura de dados eficiente.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🗺️</div>
+        <h3>Onboarding Estratégico</h3>
+        <p>Não entregamos apenas um acesso. Realizamos um onboarding completo com treinamento técnico e acompanhamento prático para que sua equipe extraia o máximo desde o primeiro dia.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎧</div>
+        <h3>Suporte Técnico Especializado</h3>
+        <p>Oferecemos suporte direto com quem entende do seu projeto. Atendimento ágil e humano para garantir que sua operação nunca pare e suas dúvidas sejam resolvidas com precisão.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <h3>Customer Success (CS)</h3>
+        <p>Nosso time de CS monitora a performance da sua solução, sugere otimizações contínuas e garante que o software acompanhe o ritmo de crescimento da sua empresa.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <h3>Integração Total</h3>
+        <p>Desenvolvemos sistemas totalmente integráveis às ferramentas que você já utiliza. Conectamos APIs e bancos de dados para que a informação flua sem barreiras entre seus departamentos.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✏️</div>
+        <h3>Personalização de Sistemas</h3>
+        <p>Diferente de soluções "de prateleira", nossas ferramentas são flexíveis. Cada funcionalidade é lapidada para se adaptar aos seus processos internos com exclusividade e segurança.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FAQ -->
+<section class="section faq-section" id="perguntas-frequentes">
+  <div class="inner">
+    <div class="faq-side">
+      <div class="chip">FAQ</div>
+      <h2 class="section-title">Perguntas<br><em>Frequentes</em></h2>
+      <p class="section-sub">Tudo o que você precisa saber antes de dar o próximo passo.</p>
+      <div class="faq-list">
+        <div class="faq-item">
+          <h4>Quais tipos de software a AttanoTech desenvolve?</h4>
+          <p>Desenvolvemos sistemas de gestão, plataformas SaaS, automações de processos, integrações de APIs e muito mais — sempre com foco em inteligência operacional para o seu negócio.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Quanto tempo leva para desenvolver um sistema?</h4>
+          <p>O prazo varia conforme a complexidade do projeto. Após a reunião inicial de diagnóstico, apresentamos um cronograma detalhado com entregas parciais e marcos claros.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Como funciona o suporte após a entrega?</h4>
+          <p>Oferecemos suporte técnico contínuo e um time de Customer Success dedicado ao seu projeto. Monitoramos a performance e sugerimos otimizações ao longo do tempo.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Posso solicitar alterações durante o desenvolvimento?</h4>
+          <p>Claro! Mantemos comunicação aberta e ágil para adaptar o projeto às suas necessidades. O seu crescimento é o nosso objetivo.</p>
+        </div>
+      </div>
+    </div>
+    <div class="faq-visual" style="position:relative;">
+      <img src="https://images.unsplash.com/photo-1741234491537-70994b652174?w=700&q=80" alt="" />
+    </div>
+  </div>
+</section>
+
+
+<!-- SOLICITE UMA REUNIÃO -->
+<section class="section section--alt" id="reuniao">
+  <div class="glow-blob"></div>
+  <div class="diag" style="width:60px;height:260px;top:5%;right:6%;transform:rotate(-10deg);opacity:.8;"></div>
+  <div class="diag" style="width:38px;height:160px;bottom:7%;left:4%;transform:rotate(10deg);opacity:.5;"></div>
+
+  <div class="meeting-wrap">
+    <div class="chip">Próximo Passo</div>
+    <h2 class="section-title">Solicite uma <em>Reunião</em></h2>
+    <p class="section-sub">
+      Vamos entender o seu desafio e apresentar como a inteligência operacional da Attano Tech pode transformar sua empresa.<br>Sem compromisso — apenas resultados.
+    </p>
+    <div class="meeting-btns">
+      <a href="https://wa.me/5514991364099" target="_blank" class="btn btn--primary">💬 Falar no WhatsApp</a>
+      <a href="mailto:contato@attanotech.com.br" class="btn btn--ghost">✉️ Enviar E-mail</a>
+    </div>
+    <div class="meeting-contacts">
+      <div class="mc-item">
+        <div class="mc-icon">📞</div>
+        <div>
+          <div class="mc-label">Telefone</div>
+          <a href="tel:14991364099">(14) 9 9136 4099</a>
+        </div>
+      </div>
+      <div class="mc-item">
+        <div class="mc-icon">🌐</div>
+        <div>
+          <div class="mc-label">Website</div>
+          <a href="https://www.attano.tech" target="_blank">www.attano.tech</a>
+        </div>
+      </div>
+      <div class="mc-item">
+        <div class="mc-icon">✉️</div>
+        <div>
+          <div class="mc-label">E-mail</div>
+          <a href="mailto:contato@attanotech.com.br">contato@attanotech.com.br</a>
+        </div>
+      </div>
+      <div class="mc-item">
+        <div class="mc-icon">📱</div>
+        <div>
+          <div class="mc-label">Instagram</div>
+          <a href="https://instagram.com/attanotech" target="_blank">@attanotech</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="inner">
+    <div>
+      <a href="#" class="logo"><div class="logo-hex"></div>ATTANO<span>TECH</span></a>
+      <p>Softwares que simplificam vidas e transformam negócios.</p>
+      <p>&copy; 2026 AttanoTech. Todos os direitos reservados.</p>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#sobre">Quem Somos</a></li>
+        <li><a href="#recursos">Diferenciais</a></li>
+        <li><a href="#depoimentos">Depoimentos</a></li>
+        <li><a href="#perguntas-frequentes">FAQ</a></li>
+        <li><a href="#reuniao">Reunião</a></li>
+      </ul>
+    </nav>
+    <div class="footer-social">
+      <a href="https://instagram.com/attanotech" target="_blank">ig</a>
+      <a href="#" target="_blank">fb</a>
+      <a href="#" target="_blank">in</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
