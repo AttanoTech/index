@@ -66,7 +66,7 @@ Por ser um arquivo estático único, pode ser publicado em qualquer serviço:
 
 | Canal | Info |
 |---|---|
-| Site | [attano.tech](https://www.attanotech.com.br) |
-| E-mail | contato@attanotech.com.br |
+| Site | [attano.tech](https://www.attano.tech) |
+| E-mail | contato@attano.tech |
 | Telefone | (14) 9 9136 4099 |
 | Instagram | [@attanotech](https://instagram.com/attanotech) |
